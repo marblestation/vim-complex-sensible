@@ -358,8 +358,20 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To automaticlly download dictionaries:
+"   :set spelllang=en_us,es,fr,ca
+"   :setlocal spell
+" To force donwload of English (and avoid some errors in OSX):
+" cd .vim/spell/
+" wget http://ftp.vim.org/vim/runtime/spell/en.utf-8.spl
+" wget http://ftp.vim.org/vim/runtime/spell/en.utf-8.sug
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+
+" Pressing ,ll will switch throught the list of languages
+let g:myLangList=["en_gb", "es_es", "ca", "fr"]
+map <leader>ll :call ChangeSpellLang()<cr>
 
 " Shortcuts using <leader>
 map <leader>sn ]s
@@ -367,10 +379,20 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-"set spelllang=en
-"set spelllang=es
-"set spelllang=fr
-"set spelllang=ca
+"set spelllang=en_us,en_gb,es_es,fr,ca
+set spelllang=en_gb
+
+hi clear SpellBad
+hi SpellBad cterm=underline,bold
+
+" Enable spellchecking for markdown, txt and tex files automatically
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.txt set filetype=text
+autocmd BufRead,BufNewFile *.tex set filetype=tex
+autocmd FileType markdown setlocal spell
+autocmd FileType text setlocal spell
+autocmd FileType tex setlocal spell
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -488,5 +510,12 @@ function! ToggleMouse()
   endif
 endfunction
 
+" Change spell language
+function! ChangeSpellLang()
+    let b:myLang=index(g:myLangList, &spelllang) + 1 
+    if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+    echo "spell checking language:" g:myLangList[b:myLang]
+endfunction
 
 
