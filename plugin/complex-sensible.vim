@@ -512,8 +512,11 @@ endfunction
 
 " Change spell language
 function! ChangeSpellLang()
-    let b:myLang=index(g:myLangList, &spelllang) + 1 
-    if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+    let b:myLang=index(g:myLangList, &spelllang)
+    if &spell
+        let b:myLang=b:myLang+1
+        if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+    endif
     execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
     echo "spell checking language:" g:myLangList[b:myLang]
 endfunction
