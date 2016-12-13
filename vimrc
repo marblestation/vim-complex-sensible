@@ -19,6 +19,7 @@ Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/mhinz/vim-startify.git'
 Plug 'https://github.com/marblestation/vim-complex-sensible.git'
+Plug 'https://github.com/vimwiki/vimwiki.git'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -178,4 +179,13 @@ let g:LatexBox_ref_pattern  = '\C\\v\?\(eq\|page\|[cC]\)\?\(ref\|sect\|tab\|fig\
 "\cite{<CTRL-X><CTRL-O>
 "\ref{sec:<CTRL-X><CTRL-O>
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimwiki plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                       \ 'syntax': 'markdown', 'ext': '.md'}]
+"<Leader>ww : Select first available.
+"<Leader>ws : List and select available wikis.
+"<C-Space> : Toggle todo list element
 
