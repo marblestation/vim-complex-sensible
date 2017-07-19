@@ -190,3 +190,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "<Leader>ws : List and select available wikis.
 "<C-Space> : Toggle todo list element
 
+" Do not contract links
+let g:vimwiki_conceallevel = 0
+
