@@ -404,6 +404,10 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+" Insert current date when pressing F3
+nmap <F3> i<C-R>=strftime("%Y.%m.%d")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y.%m.%d")<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Automatically set paste mode in Vim when pasting in insert mode
@@ -413,14 +417,14 @@ map <leader>pp :setlocal paste!<cr>
 " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! WrapForTmux(s)
-  if !exists('$TMUX')
+  "if !exists('$TMUX')
     return a:s
-  endif
+  "endif
 
-  let tmux_start = "\<Esc>Ptmux;"
-  let tmux_end = "\<Esc>\\"
+  "let tmux_start = "\<Esc>Ptmux;"
+  "let tmux_end = "\<Esc>\\"
 
-  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+  "return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
 endfunction
 
 let &t_SI .= WrapForTmux("\<Esc>[?2004h")
