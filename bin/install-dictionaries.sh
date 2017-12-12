@@ -5,7 +5,7 @@ set -e
 if [ -d "${HOME}/.vim/spell/" ] ; then
   echo "There is already vim dictionaries in place! You can remove them first with:"
   echo "rm -rf ${HOME}/.vim/spell/" 
-  exit 0
+  exit 1
 fi
 
 set -x
