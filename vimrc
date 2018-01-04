@@ -19,7 +19,7 @@ Plug 'https://github.com/w0rp/ale'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/mhinz/vim-startify'
-Plug 'https://github.com/LaTeX-Box-Team/LaTeX-Box'
+Plug 'https://github.com/sheerun/vim-polyglot' " It includes LaTeX-Box
 Plug 'https://github.com/rbgrouleff/bclose.vim'
 Plug 'https://github.com/tpope/vim-sensible'
 Plug 'https://github.com/marblestation/vim-complex-sensible'
