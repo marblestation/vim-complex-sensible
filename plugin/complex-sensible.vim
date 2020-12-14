@@ -231,11 +231,11 @@ filetype indent on
 
 set wrap "Wrap lines
 
-try
-    " Mark at 80 characters
-    set colorcolumn=81
-catch
-endtry
+"try
+"    " Mark at 80 characters
+"    set colorcolumn=81
+"catch
+"endtry
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
