@@ -146,6 +146,7 @@ set background=dark
 if has("gui_running")
     try
         colorscheme koehler
+        "colorscheme torte
         "colorscheme default
     catch
     endtry
@@ -156,6 +157,8 @@ if has("gui_running")
     " Activate mouse
     set mouse=a
     "set mouse=
+    " Layout to allow airline to show buffers at the top
+    set guioptions=mrb
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -166,7 +169,7 @@ set ffs=unix,dos,mac
 
 " Set font according to system
 if has("mac") || has("macunix")
-    set gfn=Monaco:h15
+    set gfn=Monaco:h13
     set shell=/bin/bash
 elseif has("win16") || has("win32")
     set gfn=Bitstream\ Vera\ Sans\ Mono:h12

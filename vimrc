@@ -3,23 +3,19 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/altercation/vim-colors-solarized'
 Plug 'https://github.com/bling/vim-airline'
 Plug 'https://github.com/vim-airline/vim-airline-themes'
 Plug 'https://github.com/majutsushi/tagbar'
 Plug 'https://github.com/scrooloose/nerdcommenter'
-Plug 'https://github.com/airblade/vim-gitgutter'
 Plug 'https://github.com/Lokaltog/vim-easymotion'
 Plug 'https://github.com/raimondi/delimitmate'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/w0rp/ale'
-Plug 'https://github.com/terryma/vim-multiple-cursors'
-Plug 'https://github.com/vimwiki/vimwiki'
+Plug 'https://github.com/dense-analysis/ale'
+Plug 'https://github.com/mg979/vim-visual-multi'
 Plug 'https://github.com/mhinz/vim-startify'
-Plug 'https://github.com/sheerun/vim-polyglot' " It includes LaTeX-Box
+Plug 'https://github.com/sheerun/vim-polyglot'
+Plug 'https://github.com/lervag/vimtex'
 Plug 'https://github.com/rbgrouleff/bclose.vim'
 Plug 'https://github.com/tpope/vim-sensible'
 Plug 'https://github.com/marblestation/vim-complex-sensible'
@@ -65,6 +61,7 @@ let g:airline#extensions#whitespace#enabled = 0 " Do not check for trailing whit
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -89,33 +86,12 @@ let g:NERDCustomDelimiters = {'python': {'left': '#'}}
 
 
 """"""""""""""""""""""""""""""
-" => gitgutter plugin
-""""""""""""""""""""""""""""""
-let g:gitgutter_enabled = 0
-map <Leader>gg :GitGutterToggle<cr>
-
-
-""""""""""""""""""""""""""""""
 " => tagbar plugin
 """"""""""""""""""""""""""""""
 " It needs exuberant-ctags
 map <leader>tt :TagbarToggle <CR>
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0 " Sorted by order of appearence in the file
-
-" Add IDL language support
-let g:tagbar_type_idlang = {
-    \ 'ctagstype' : 'IDL',
-    \ 'kinds'     : [
-        \ 'p:procedures',
-        \ 'f:functions'
-    \ ]
-\ }
-" NOTE: Create also ~/.ctags with the following content:
-"--langdef=IDL
-"--langmap=IDL:.pro
-"--regex-IDL=/^pro[ \t]+([a-zA-Z0-9_:]+)/\1/p,procedure/i
-"--regex-IDL=/^function[ \t]+([a-zA-Z0-9_:]+)/\1/f,function/i
 
 
 """"""""""""""""""""""""""""""
@@ -137,38 +113,25 @@ let g:ale_set_highlights = 1
 
 
 """"""""""""""""""""""""""""""
-" => vim-multiple-cursors plugin
+" => vim-visual-multi plugin
 """"""""""""""""""""""""""""""
 " Use :MultipleCursorsFind pattern
 "
-" Select a word in visual mode, press C-n to find repetition and press c to
-" change or other vim
-let g:multi_cursor_next_key='<C-n>' " Next
-let g:multi_cursor_prev_key='<C-p>' " Previous
-let g:multi_cursor_skip_key='<C-x>' " Discard current
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_exit_from_insert_mode = 0 " In Insert mode will not quit and delete all existing cursors. This is useful if you want to press Escape and go back to Normal mode, and still be able to operate on all the cursors.
-
-
-""""""""""""""""""""""""""""""
-" => fzf plugin
-""""""""""""""""""""""""""""""
-nmap <Leader>zz :Buffers<CR>
-nmap <Leader>zf :Files<CR>
-" Commands
-"Files [PATH]	Files (similar to :FZF)
-"GFiles [OPTS]	Git files (git ls-files)
-"GFiles?	Git files (git status)
-"Buffers	Open buffers
-"Colors	Color schemes
-"Ag [PATTERN]	ag search result (ALT-A to select all, ALT-D to deselect all)
-"Tags [QUERY]	Tags in the project (ctags -R)
-"BTags [QUERY]	Tags in the current buffer
-"Marks	Marks
-"Locate PATTERN	locate command output
-"History	v:oldfiles and open buffers
-"History:	Command history
-"History/	Search history
+" Select a word in visual mode, press C-n to find repetition
+let g:VM_theme = 'sand'
+let g:VM_highlight_matches = ''
+let g:VM_maps = {}
+let g:VM_maps["Add Cursor Down"]   = '<C-j>'
+let g:VM_maps["Add Cursor Up"]     = '<C-k>'
+let g:VM_maps["Add Cursor At Pos"] = '\\\'
+let g:VM_maps["Find Next"] = '<c-n>'
+let g:VM_maps["Find Prev"] = '<c-p>'
+let g:VM_maps["Skip Region"] = '<c-x>'
+let g:VM_maps["Switch Mode"] = '<Tab>' " switch between cursor and extend/visual mode
+let g:VM_case_setting = 'sensitive'
+let g:VM_use_first_cursor_in_line = 0
+let g:VM_skip_shorter_lines = 1
+let g:VM_single_mode_auto_reset = 0
 
 
 """"""""""""""""""""""""""""""
@@ -216,31 +179,61 @@ nmap <Leader>e <Plug>(easymotion-bd-e)
 
 
 """"""""""""""""""""""""""""""
-" => Latex-Box plugin
+" => VimTex plugin
 """"""""""""""""""""""""""""""
 " * Requires latexmk (apt-get install latexmk)
-"let g:LatexBox_quickfix = 0 " The quickfix is not opened automatically
-let g:LatexBox_quickfix = 1 " The quickfix window is opened automatically and it becomes active
-let g:LatexBox_show_warnings = 0 " If set to 1, warnings in compilation will be listed as errors.
-"let g:LatexBox_ref_pattern  = '\C\\v\?\(eq\|page\|[cC]\)\?ref\*\?\_\s*{' " Default
-let g:LatexBox_ref_pattern  = '\C\\v\?\(eq\|page\|[cC]\)\?\(ref\|sect\|tab\|fig\)\*\?\_\s*{' " Include also \sect, \tab and \fig
-" Compilation:
-"<LocalLeader>ll Compile with latexmk.
-"<LocalLeader>lc Clean temporary output from LaTeX
-"<LocalLeader>lv View output file.
-"<LocalLeader>lt Open a table of contents.
-" Autocompletion:
-"\cite{<CTRL-X><CTRL-O>
-"\ref{sec:<CTRL-X><CTRL-O>
+let g:vimtex_quickfix_mode = 2 " 0 = not show, 1 = show and become active, 2 = show
+let g:vimtex_compiler_method = 'latexmk'
+
+"" Disable custom warnings based on regexp
+"let g:vimtex_quickfix_ignore_filters = [
+      "\ 'Warning',
+      "\ 'warning',
+      "\]
+
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_view_automatic = 0
+map <leader>lp :VimtexCompileSS<cr>
+map <leader>lc :VimtexClean<cr>
+map <leader>lt :VimtexTocToggle<cr>
+map <leader>lo :VimtexView<cr>
 
 
+""""""""""""""""""""""""""""""
+" => startify plugin
+""""""""""""""""""""""""""""""
+let g:startify_custom_header = 'startify#pad(["Vim Startify"]) '
+"let g:startify_bookmarks = [ {'s': '~/Sync/Thing/Notes/pages/ScratchPad.md'}, '~/Sync/Thing/Notes/pages/content.md' ]
+let g:startify_bookmarks = [ {'s': '~/Sync/Thing/Notes/pages/ScratchPad.md'} ]
+let g:startify_lists = [
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ { 'type': 'files',     'header': ['   MRU']            },
+          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'commands',  'header': ['   Commands']       },
+          \ ]
+map <leader>ww :Startify<cr>
+
+
+""""""""""""""""""""""""""""""
+" => wiki.vim plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimwiki plugin
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                       \ 'syntax': 'markdown', 'ext': '.md'}]
-"<Leader>ww : Select first available.
-"<Leader>ws : List and select available wikis.
-"<C-Space> : Toggle todo list element
-
-let g:vimwiki_conceallevel = 0
+" Set it up to match logseq configuration
+" - use ,ww  to open index
+" - use ,w,w to open journal
+" - follow double brackets links pressing enter
+let g:wiki_root = '~/Sync/Thing/Notes/'
+let g:wiki_index_name = 'pages/Index.md'
+let g:wiki_filetypes = ['md']
+let g:wiki_link_extension = '.md'
+let g:wiki_journal = {
+          \ 'name': 'journals',
+          \ 'frequency': 'daily',
+          \ 'date_format': {
+          \   'daily' : '%Y_%m_%d',
+          \   'weekly' : '%Y_w%V',
+          \   'monthly' : '%Y_m%m',
+          \ },
+          \ 'index_use_journal_scheme': v:true,
+          \}
+let g:wiki_link_target_type = 'md'
