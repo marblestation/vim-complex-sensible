@@ -121,6 +121,7 @@ let g:ale_set_highlights = 1
 let g:VM_theme = 'sand'
 let g:VM_highlight_matches = ''
 let g:VM_maps = {}
+let g:VM_maps['Find Under']        = '<C-d>'
 let g:VM_maps["Add Cursor Down"]   = '<C-j>'
 let g:VM_maps["Add Cursor Up"]     = '<C-k>'
 let g:VM_maps["Add Cursor At Pos"] = '\\\'
