@@ -373,7 +373,7 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 map <leader>ss :setlocal spell!<cr>
 
 " Pressing ,ll will switch throught the list of languages
-let g:myLangList=["en_gb", "es_es", "ca", "fr"]
+let g:myLangList=["en_us", "en_gb", "es_es", "ca", "fr"]
 map <leader>ll :call ChangeSpellLang()<cr>
 
 " Shortcuts using <leader>
@@ -382,8 +382,8 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-"set spelllang=en_us,en_gb,es_es,fr,ca
-set spelllang=en_gb
+"set spelllang=en_us,en_us,en_gb,es_es,fr,ca
+set spelllang=en_us
 
 hi clear SpellBad
 hi SpellBad cterm=underline,bold
