@@ -136,7 +136,7 @@ set vb
 syntax enable 
 
 try
-    colorscheme desert
+    colorscheme koehler
 catch
 endtry
 
