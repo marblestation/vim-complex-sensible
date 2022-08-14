@@ -240,6 +240,17 @@ set wrap "Wrap lines
 "catch
 "endtry
 
+set textwidth=80 " Visual selection + gq will reformat text (e.g., comments) to a maximum line length
+augroup Format-Options
+    " Use BufEnter to avoid overwrite by other plugins
+    autocmd!
+    autocmd BufEnter * setlocal formatoptions-=c formatoptions-=t formatoptions+=q
+    "t - automatic formatting of text
+    "c - automatic formatting for comments
+    "q - allogw 'gq' to work
+augroup END
+
+
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
